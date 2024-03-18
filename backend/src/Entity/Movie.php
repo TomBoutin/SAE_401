@@ -26,6 +26,21 @@ class Movie
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'movies')]
     private Collection $category;
 
+    #[ORM\Column(length: 255)]
+    private ?string $realisateur = null;
+
+    #[ORM\Column]
+    private ?int $annee_sortie = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $affiche_verticale = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $affiche_horizontale = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $trailer = null;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -68,6 +83,66 @@ class Movie
     public function removeCategory(Category $category): static
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    public function getRealisateur(): ?string
+    {
+        return $this->realisateur;
+    }
+
+    public function setRealisateur(string $realisateur): static
+    {
+        $this->realisateur = $realisateur;
+
+        return $this;
+    }
+
+    public function getAnneeSortie(): ?int
+    {
+        return $this->annee_sortie;
+    }
+
+    public function setAnneeSortie(int $annee_sortie): static
+    {
+        $this->annee_sortie = $annee_sortie;
+
+        return $this;
+    }
+
+    public function getAfficheVerticale(): ?string
+    {
+        return $this->affiche_verticale;
+    }
+
+    public function setAfficheVerticale(string $affiche_verticale): static
+    {
+        $this->affiche_verticale = $affiche_verticale;
+
+        return $this;
+    }
+
+    public function getAfficheHorizontale(): ?string
+    {
+        return $this->affiche_horizontale;
+    }
+
+    public function setAfficheHorizontale(string $affiche_horizontale): static
+    {
+        $this->affiche_horizontale = $affiche_horizontale;
+
+        return $this;
+    }
+
+    public function getTrailer(): ?string
+    {
+        return $this->trailer;
+    }
+
+    public function setTrailer(string $trailer): static
+    {
+        $this->trailer = $trailer;
 
         return $this;
     }

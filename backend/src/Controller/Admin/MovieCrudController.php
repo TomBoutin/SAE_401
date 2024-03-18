@@ -8,6 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 
 
 class MovieCrudController extends AbstractCrudController
@@ -21,6 +23,12 @@ class MovieCrudController extends AbstractCrudController
     {
         yield TextField::new('name');
         yield AssociationField::new('category');
+        yield TextField::new('realisateur');
+        yield IntegerField::new('annee_sortie');
+        yield TextField::new('affiche_verticale');
+        yield TextField::new('affiche_horizontale');
+        yield TextField::new('trailer');
+        
  
  
     } 
