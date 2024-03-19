@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       loader: OurTeamsLoader,
     }
     ],
-  }
+  },
 ]);
 
 const rootElement = document.querySelector('#root');

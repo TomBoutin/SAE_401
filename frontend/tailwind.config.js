@@ -6,6 +6,11 @@ export default {
       colors: {
         background: "hsl(var(--background) /<alpha-value>)",
         foreground: "hsl(var(--foreground) /<alpha-value>)",
+
+        'white': "var(--clr-light)",
+        'black': "var(--clr-dark)",
+        'secondary': "var(--clr-secondary)",
+        'main': "var(--clr-main)",
       },
       textColor: {
         background: "hsl(var(--background) /<alpha-value>)",
@@ -22,6 +27,9 @@ export default {
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
+      },
+      fontFamily: {
+        openSans: ["Open Sans", "sans-serif"],
       },
     },
   },

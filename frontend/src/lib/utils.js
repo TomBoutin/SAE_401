@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+import { clsx } from "clsx";
 
 // fake a cache so we don't slow down stuff we've already seen
 let fakeCache = {};
@@ -15,4 +17,8 @@ export async function fakeNetwork(key) {
   return new Promise(res => {
     setTimeout(res, Math.random() * 3000);
   });
+}
+
+export function cn(...args) {
+  return twMerge(clsx(args));
 }

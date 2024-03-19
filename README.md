@@ -46,4 +46,4 @@ docker-compose up -d
 ## Liens
 - Frontend : [http://localhost:8090](http://localhost:8090)
 - Backend : [http://localhost:8080](http://localhost:8080)
-- phpMyAdmin : [http://localhost:8788](http://localhost:8070)
+- phpMyAdmin : [http://localhost:8070](http://localhost:8070)
