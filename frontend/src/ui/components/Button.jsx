@@ -25,7 +25,7 @@ const button = cva(base, {
       ],
     },
     size: {
-      small: ["text-base", "py-2", "px-2"],
+      small: ["text-base", "py-2", "px-4"],
       medium: ["text-base", "py-2", "px-12"],
       large: ["text-2xl", "py-3", "px-12"],
     },
@@ -37,11 +37,11 @@ const button = cva(base, {
   },
 });
 
-function Button({ intent, size, className, ...rest }) {
+export default function Button({ intent, size, className, ...rest }) {
   return <button {...rest} className={button({ intent, size, className })} />;
 }
 
-export default function Button_View() {
+export function Button_View() {
   return (
     <div className="grid h-screen place-content-center bg-black font-openSans" >
       < Button intent="primary" className="mb-5">Click Me</ Button >
