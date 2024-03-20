@@ -20,9 +20,9 @@ export default function NavBar() {
           />
 
           <ul
-            className={
-              "absolute -left-32.5 flex flex-col items-center gap-10 bg-secondary py-8 w-screen -translate-y-29"
-            }
+  className={
+    "absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-10 bg-secondary py-8 w-screen -translate-y-29"
+  }
           >
             <li>
               <Link to="/about" className="text-white hover:text-main">
