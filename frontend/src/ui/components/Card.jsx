@@ -1,47 +1,28 @@
-import { cva } from "class-variance-authority";
 
-// Base definition
-const base = "inline-flex";
-
-const card = cva(base, {
-  variants: { 
-    intent: {
-      horizontal: [
-
-      ],
-      vertical: [
-        
-      ],
-    },
-  },
-  compoundVariants: [{ intent: "horizontal", class: "none" }],
-  defaultVariants: {
-    intent: "horizontal",
-  },
-});
-
-function Card({ intent, className, ...rest }) {
-    
-return
-    <li class="card" onclick='requestTrailer("{{film}}")'>
-  <img src="../../assets/{{image-large}}" alt="" class="card__img" />
-  <div class="card__text">
-    <p class="card__text-titre display-8">{{titre}}</p>
-    <div class="card__desc">
-      <p class="card__text-name">{{réalisateur}}</p>
-      <p class="card__text-date">{{annee_sortie}}</p>
-    </div>
-  </div>
-  <img src="../../assets/Unionplus.svg" alt="" class="card__plus" onclick='addtoplaylist("{{film}}");event.stopPropagation();' />
-</li>
+import { Plus } from "../Icons/index.jsx";
+import { Moins } from "../Icons/index.jsx";
 
 
-}
+export default function Card({ id, name, realisateur, annee_sortie, image_vertical }) {
 
-export default function Card_View() {
   return (
-    <ul className="grid h-screen place-content-center bg-black">
-        <Card/>
-    </ul>
-  );
+    <li id={id} className="list-none mt-24">
+      <div className="w-88 aspect-video">
+        <img src="/img/interstellar_horizontal.webp" alt="" className="object-cover"/>
+        <div>
+          <p>Interstellar</p>
+          <div>
+            <p>Christopher Nolan</p>
+            <p>2014</p>
+          </div>
+        </div>
+        <button>
+          <Plus color="" />
+        </button>
+
+      </div>
+    </li>
+  )
+
 }
+
