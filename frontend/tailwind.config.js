@@ -24,6 +24,7 @@ export default {
       },
       backgroundImage: {
         shape: "url('./assets/bgshapes.svg')",
+        navBorder: "url('./public/img/NavBorder.png')",
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
@@ -31,6 +32,17 @@ export default {
       fontFamily: {
         openSans: ["Open Sans", "sans-serif"],
       },
+      backgroundSize: {
+        "16": "2.25606rem 4rem",
+      },
+      translate: {
+        29: "7.25rem",
+        37: "9.25rem",
+        38: "9.5rem",
+      },
+      inset: {
+      },
+
     },
   },
   plugins: [],
