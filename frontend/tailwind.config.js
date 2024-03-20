@@ -37,11 +37,11 @@ export default {
       },
       translate: {
         29: "7.25rem",
+        42: "10.5rem",
         37: "9.25rem",
         38: "9.5rem",
       },
-      inset: {
-      },
+      
 
     },
   },
