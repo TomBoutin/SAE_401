@@ -1,7 +1,7 @@
-export const Plus = ({ color }) => {
+export const Plus = ({ color, className }) => {
   return (
     <svg
-      className={`${color}`}
+      className={`${color} ${className}`}
       width="32"
       height="32"
       viewBox="0 0 16 16"

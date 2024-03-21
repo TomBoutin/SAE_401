@@ -1,6 +1,6 @@
 import NavBar from '../ui/NavBar';
 import { Outlet } from 'react-router-dom';
-import Card from '../ui/components/Card';
+import Card_Horizontal from '../ui/components/Card_Horizontal';
 
 
 export default function Root() {
@@ -9,7 +9,7 @@ export default function Root() {
     <>
     <section>
       <NavBar />
-      <Card />
+      <Card_Horizontal />
       <Outlet />
       </section>
     </>

@@ -25,6 +25,7 @@ export default {
       backgroundImage: {
         shape: "url('./assets/bgshapes.svg')",
         navBorder: "url('./public/img/NavBorder.png')",
+        cardGradiant: "linear-gradient(180deg, rgba(22,15,15,0) 0%, #160F0F 100%)",
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
