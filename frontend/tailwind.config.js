@@ -45,6 +45,9 @@ export default {
       width: {
         88: "22rem",
       },
+      height: {
+        88: "22rem",
+      },
       
 
     },

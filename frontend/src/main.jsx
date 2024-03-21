@@ -7,6 +7,7 @@ import Buy, {loader as buyLoader} from './routes/buy.jsx';
 import './index.css';
 import ErrorPage from './ui/ErrorPage/index.jsx';
 import OurTeams, {loader as OurTeamsLoader} from './routes/ourteams.jsx'; 
+import DesignSystem from './routes/designsystem.jsx';
 
 // import Buy from './routes/buy.jsx';
 // import { fetchPricingData } from './lib/loaders.js';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       loader: OurTeamsLoader,
     }
     ],
+  },
+  {
+    path: '/designsystem',
+    element: <DesignSystem/>,
   },
 ]);
 
