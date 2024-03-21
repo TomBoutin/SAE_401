@@ -2,6 +2,7 @@ import NavBar from "../ui/NavBar";
 import { Outlet } from "react-router-dom";
 import Card_Horizontal from "../ui/components/Card_Horizontal";
 import Card_Vertical from "../ui/components/Card_Vertical";
+import Input from "../ui/components/Input";
 
 export default function DesignSystem() {
   return (
@@ -13,7 +14,7 @@ export default function DesignSystem() {
           <Card_Vertical />
         </div>
 
-
+      <Input intent="primary" className="mb-5"/>
 
         <Outlet />
       </section>
