@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import Card_Horizontal from "../ui/components/Card_Horizontal";
 import Card_Vertical from "../ui/components/Card_Vertical";
 import Input from "../ui/components/Input";
+import Button from "../ui/components/Button";
+import Select from "../ui/components/Select";
 
 export default function DesignSystem() {
   return (
@@ -14,8 +16,17 @@ export default function DesignSystem() {
           <Card_Vertical />
         </div>
 
-      <Input intent="primary" className="mb-5"/>
+        <div className="mt-10 text-center">
+          <Input placeholder="Rechercher un film" className="mb-5" />
+        </div>
+        <div className="mt-10 text-center flex justify-center gap-6">
+        <Button intent="primary" size="medium">
+          Button
+        </Button> 
 
+        <Select categories={["Catégorie1", "Catégorie2", "Catégorie3", "Catégorie4"]} />
+        </div>
+        
         <Outlet />
       </section>
     </>
