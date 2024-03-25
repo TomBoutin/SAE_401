@@ -1,5 +1,5 @@
+import { useLoaderData, defer} from "react-router-dom";
 import NavBar from "../ui/NavBar";
-import { Outlet } from "react-router-dom";
 import Card_Horizontal from "../ui/components/Card_Horizontal";
 import Card_Vertical from "../ui/components/Card_Vertical";
 import Input from "../ui/components/Input";
@@ -18,7 +18,7 @@ export async function loader() {
   return defer (dataMovie);
 }
 
-export default function DesignSystem() {
+export default function Home() {
 
   const data = useLoaderData();
 
@@ -31,17 +31,6 @@ export default function DesignSystem() {
           <Card_Vertical {...data} />
         </div>
 
-        <div className="mt-10 text-center">
-          <Input placeholder="Rechercher un film" className="mb-5" />
-        </div>
-        <div className="mt-10 text-center flex justify-center gap-6">
-        <Button intent="primary" size="medium">
-          Button
-        </Button> 
-
-        <Select categories={["Catégorie1", "Catégorie2", "Catégorie3", "Catégorie4"]} />
-        </div>
-        
       </section>
     </>
   );

@@ -9,6 +9,7 @@ use App\Entity\Movie;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class ApiController extends AbstractController
@@ -43,6 +44,24 @@ class ApiController extends AbstractController
         // $response est une instance de JsonResponse qui hérite de Response
         // C'est la classe à utiliser lorsque l'on veut retourner du JSON
         // $data sera automatiquement encodé en JSON
+        $response = new JsonResponse( $data );
+        return $response;
+    }
+
+    #[Route('/api/movies', name: 'app_api_movies')]
+    public function readMovies(EntityManagerInterface $entityManager,SerializerInterface $serializer ): Response
+    {
+        $movies = $entityManager->getRepository(Movie::class)->findAll();
+        $data = $serializer->normalize($movies, null, ['groups' => 'json_movie']);
+        $response = new JsonResponse( $data );
+        return $response;
+    }
+
+    #[Route('/api/categories', name: 'app_api_categories')]
+    public function readCategories(EntityManagerInterface $entityManager,SerializerInterface $serializer ): Response
+    {
+        $categories = $entityManager->getRepository(Category::class)->findAll();
+        $data = $serializer->normalize($categories, null, ['groups' => 'json_category']);
         $response = new JsonResponse( $data );
         return $response;
     }
