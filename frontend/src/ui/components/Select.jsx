@@ -4,6 +4,7 @@ export default function Select({ categories,className, ...rest }) {
       {...rest}
       className={`${className} rounded-lg border-transparent bg-main text-white hover:bg-red-400 hover:outline hover:outline-2 hover:outline-offset-2 hover:outline-white text-base py-2 px-2`}
     >
+      <option value="">Tous les films</option>
       {categories.map((category) => (
         <option key={category.id} value={category.id}>
           {category.name}
