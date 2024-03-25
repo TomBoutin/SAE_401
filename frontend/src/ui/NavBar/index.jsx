@@ -27,7 +27,7 @@ export default function NavBar() {
         >
           <li>
             <Link
-              to="/about"
+              to="/"
               className="text-white hover:text-main"
               onClick={toggleMenu}
             >
