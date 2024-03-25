@@ -6,6 +6,7 @@ import Input from "../ui/components/Input";
 import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
 import { fetchMovieData } from "../lib/loaders";
+import { useLoaderData, defer } from "react-router-dom";
 
 // export async function fetchMovieData(movie) {
 //   let answer = await fetch(`http://localhost:8080/api/movie/${movie}`);

@@ -5,7 +5,7 @@ import Card_Vertical from "../ui/components/Card_Vertical";
 import Input from "../ui/components/Input";
 import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
-import { fetchMovieData } from "../lib/loaders";
+import { fetchMoviesData } from "../lib/loaders";
 
 // export async function fetchMovieData(movie) {
 //   let answer = await fetch(`http://localhost:8080/api/movie/${movie}`);
@@ -14,7 +14,7 @@ import { fetchMovieData } from "../lib/loaders";
 // }
 
 export async function loader() {
-  const dataMovie = await fetchMovieData(1);
+  const dataMovie = await fetchMoviesData(1);
   return defer (dataMovie);
 }
 
@@ -24,13 +24,8 @@ export default function Home() {
 
   return (
     <>
-      <section className="bg-black pt-24">
-        <NavBar />
-        <div className=" flex items-center justify-center gap-10">
-          <Card_Horizontal {...data} />
-          <Card_Vertical {...data} />
-        </div>
-
+      <section>
+        
       </section>
     </>
   );
