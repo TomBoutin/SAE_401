@@ -1,8 +1,8 @@
 import { useLoaderData, defer, Await  } from "react-router-dom";
+import { Suspense} from "react";
 import Team from "../ui/Team";
 import { fetchOurTeams, fetchTestimonialData } from "../lib/loaders";
 import Testimonial from "../ui/Testimonial";
-import { Suspense} from "react";
 import TeamSkeleton from "../ui/Team/TeamSkeleton";
 
 export async function loader({params}) {
