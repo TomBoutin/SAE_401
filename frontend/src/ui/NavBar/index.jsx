@@ -37,7 +37,7 @@ export default function NavBar() {
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={toggleMenu}>
+            <Link to="http://localhost:8080/login" onClick={toggleMenu}>
               <Button intent="primary" size="small">
                 Se Connecter
               </Button>
