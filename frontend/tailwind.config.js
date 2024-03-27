@@ -46,13 +46,15 @@ export default {
       },
       width: {
         88: "22rem",
+        140: "35rem",
       },
       height: {
         88: "22rem",
         140: "35rem",
       },
-      
-
+      spacing: {
+      140: "35rem",
+    },
     },
   },
   plugins: [],

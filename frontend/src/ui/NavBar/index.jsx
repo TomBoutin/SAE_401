@@ -9,14 +9,16 @@ export default function NavBar() {
     setIsOpen(!isOpen);
   };
 
+
+
   return (
     <>
       <nav
-        className={`before:rotate-y-180 fixed inset-0 z-50 mx-auto flex h-16 max-w-64 items-center justify-between bg-secondary px-5 py-3 transition-all duration-500 before:absolute before:-left-8 before:inline-block before:h-16 before:w-9 before:bg-navBorder before:bg-16 before:content-[''] after:absolute after:-right-8 after:inline-block after:h-16 after:w-9 after:bg-navBorder after:bg-16 after:content-[''] md:max-w-2xl md:translate-y-0 ${isOpen ? "translate-y-42" : ""}`}
+        className={`before:rotate-y-180 fixed inset-0 z-50 mx-auto flex h-16 max-w-64 items-center justify-between bg-secondary px-5 py-3 transition-all duration-500 before:absolute before:-left-8 before:inline-block before:h-16 before:w-9 before:bg-[url('/img/navborder.webp')] before:bg-16 before:content-[''] after:absolute after:-right-8 after:inline-block after:h-16 after:w-9 after:bg-[url('/img/navborder.webp')] after:bg-16 after:content-[''] md:max-w-2xl md:translate-y-0 ${isOpen ? "translate-y-42" : ""}`}
       >
         <Link to="/">
         <img
-          src="../../../public/img/logo.png"
+          src="../../../public/img/logo.webp"
           alt="Logo"
           className="ml-4 h-8 cursor-pointer md:h-10"
         />
