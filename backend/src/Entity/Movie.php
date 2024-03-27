@@ -41,6 +41,12 @@ class Movie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $trailer = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $duree = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $synopsis = null;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -146,5 +152,30 @@ class Movie
 
         return $this;
     }
+
+    public function getDuree(): ?string
+    {
+        return $this->duree;
+    }
+
+    public function setDuree(string $duree): static
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    public function getSynopsis(): ?string
+    {
+        return $this->synopsis;
+    }
+
+    public function setSynopsis(string $synopsis): static
+    {
+        $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
 
 }

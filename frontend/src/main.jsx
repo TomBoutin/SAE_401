@@ -11,7 +11,7 @@ import DesignSystem from './routes/designsystem.jsx';
 import {loader as designsystemloader} from './routes/designsystem.jsx';
 import Home, {loader as homeLoader} from './routes/home.jsx';
 
-import Details from './routes/details.jsx';
+import Details, {loader as detailsLoader} from './routes/details.jsx';
 
 // import Buy from './routes/buy.jsx';
 // import { fetchPricingData } from './lib/loaders.js';
@@ -27,10 +27,15 @@ const router = createBrowserRouter([
         loader: homeLoader,
       },
       {
-        path: '/details/:filmId',
+        path: '/details/:filmName',
         element: <Details />,
-        
+        loader: detailsLoader,
       },
+      {
+        path: '/team/:teamName',
+        element: <OurTeams />,
+        loader: OurTeamsLoader,
+      }
     ],
   },
   {

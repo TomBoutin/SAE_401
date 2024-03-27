@@ -17,10 +17,6 @@ export default function Card_Vertical({ id, name, realisateur, annee_sortie, aff
         </div>
       </div>
 
-      <Button intent="primary" size="small" className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 z-10">
-        <Plus color="" className="h-6 w-6"/>
-      </Button>
-
 
     </li>
   )

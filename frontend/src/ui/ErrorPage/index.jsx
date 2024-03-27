@@ -5,6 +5,7 @@ export default function ErrorPage() {
   console.error(error);
 
   return (
+    <>
     <div className="flex flex-col space-y-5 items-center my-20">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
@@ -12,5 +13,6 @@ export default function ErrorPage() {
         <i>{error.statusText || error.message}</i>
       </p>
     </div>
+    </>
   );
 }

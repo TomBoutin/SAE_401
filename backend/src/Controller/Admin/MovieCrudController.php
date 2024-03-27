@@ -28,7 +28,8 @@ class MovieCrudController extends AbstractCrudController
         yield TextField::new('affiche_verticale');
         yield TextField::new('affiche_horizontale');
         yield TextField::new('trailer');
-        
+        yield TextField::new('duree');   
+        yield TextareaField::new('synopsis');
  
  
     } 

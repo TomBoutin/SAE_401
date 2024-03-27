@@ -27,6 +27,7 @@ export default {
         navBorder: "url('./public/img/NavBorder.png')",
         cardGradiant: "linear-gradient(180deg, rgba(22,15,15,0) 0%, #160F0F 100%)",
         HeaderImage: "linear-gradient(180deg, rgba(22,15,15,0) 0%,rgba(22,15,15,0) 45%, #160F0F 100%), url('/img/bg-image.webp')",
+        DetailsGradiant: "linear-gradient(180deg, rgba(22,15,15,0) 0%, #160F0F 100%)",
       },
       borderRadius: {
         DEFAULT: "var(--radius)",
@@ -48,6 +49,7 @@ export default {
       },
       height: {
         88: "22rem",
+        140: "35rem",
       },
       
 
