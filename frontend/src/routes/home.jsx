@@ -6,17 +6,20 @@ import Card_Vertical from "../ui/components/Card_Vertical";
 import Input from "../ui/components/Input";
 import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
-import { fetchCategoriesData, fetchMoviesData } from "../lib/loaders";
+import { fetchCategoriesData, fetchMoviesData,  fetchMoviesFeatured } from "../lib/loaders";
 import Card_HorizontalSkeleton from "../ui/components/Card_HorizontalSkeleton";
+import CustomCarousel from "../ui/Carousel/carousel.jsx";
+
 
 export async function loader() {
   const dataMovies = await fetchMoviesData();
   const dataCategories = await fetchCategoriesData();
-  return defer({ dataMovies, dataCategories });
+  const dataMoviesFeatured = await fetchMoviesFeatured();
+  return defer({ dataMovies, dataCategories, dataMoviesFeatured });
 }
 
 export default function Home() {
-  const { dataMovies, dataCategories } = useLoaderData();
+  const { dataMovies, dataCategories, dataMoviesFeatured } = useLoaderData();
   const [selectedCategory, setSelectedCategory] = useState();
   const [searchValue, setSearchValue] = useState("");
 
@@ -55,21 +58,30 @@ export default function Home() {
         />
       </section>
 
+      <h2 className="text-2xl font-bold ml-10 my-6">Films mis en avant</h2>
+
+<div className="mx-7">
+      <CustomCarousel data={dataMoviesFeatured} cardType="vertical" />
+</div>
+
+<h2 className="text-2xl font-bold ml-10 mt-8">Tous les films</h2>
+
+
       <Select
         categories={dataCategories}
         onChange={handleSelectChange}
-        className="ml-10"
+        className="ml-10 mt-10"
       />
 
-      <ul className="mx-5 mt-8 flex flex-wrap items-center justify-center gap-5">
+      <ul className="mx-5 my-8 flex flex-wrap items-center justify-center gap-5 ">
         {filteredMovies.map((movie) => (
-    <li key={movie.id}>
-    <Suspense fallback={<Card_HorizontalSkeleton />}>
-      <Link to={`/details/${movie.id}`}>
-        <Card_Horizontal {...movie} />
-      </Link>
-    </Suspense>
-  </li>
+          <li key={movie.id}>
+            <Suspense fallback={<Card_HorizontalSkeleton />}>
+              <Link to={`/details/${movie.id}`}>
+                <Card_Horizontal {...movie} />
+              </Link>
+            </Suspense>
+          </li>
         ))}
       </ul>
     </>

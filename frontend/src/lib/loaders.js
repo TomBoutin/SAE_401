@@ -33,6 +33,11 @@ export async function fetchMoviesData() {
     return data;
 }
 
+export async function fetchMoviesFeatured() {
+    let answer = await fetch("http://localhost:8080/api/movies/featured");
+    let data = await answer.json();
+    return data;
+}
 
 export async function fetchCategoriesData() {
     let answer = await fetch("http://localhost:8080/api/categories");
@@ -46,7 +51,7 @@ export async function fetchMovieData(movie) {
     return data;
 }
 
-export async function fetchCategorieData (categorie) {
+export async function fetchCategorieData(categorie) {
     let answer = await fetch(`http://localhost:8080/api/category/${categorie}`);
     let data = await answer.json();
     return data;

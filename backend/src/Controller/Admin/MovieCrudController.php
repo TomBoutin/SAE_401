@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 
 class MovieCrudController extends AbstractCrudController
@@ -30,7 +31,7 @@ class MovieCrudController extends AbstractCrudController
         yield TextField::new('trailer');
         yield TextField::new('duree');   
         yield TextareaField::new('synopsis');
- 
+        yield BooleanField::new('mis_en_avant');
  
     } 
 

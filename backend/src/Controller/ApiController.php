@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 
 
 class ApiController extends AbstractController
@@ -65,5 +66,26 @@ class ApiController extends AbstractController
         $response = new JsonResponse( $data );
         return $response;
     }
- 
+
+    #[Route('/api/movies/featured', name: 'app_api_movies_featured')]
+    public function getFeaturedMovies(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+{
+    $movies = $entityManager->getRepository(Movie::class)->findBy(['mis_en_avant' => true]);
+    $data = $serializer->normalize($movies, null, ['groups' => 'json_movie']);
+    $response = new JsonResponse($data);
+    return $response;
+}
+    
+
+
+    #[Route('/api/users', name: 'app_api_users')]
+    public function readUsers(EntityManagerInterface $entityManager,SerializerInterface $serializer ): Response
+    {
+        $users = $entityManager->getRepository(User::class)->findAll();
+        $data = $serializer->normalize($users);
+        $response = new JsonResponse( $data );
+        return $response;
+    }
+    
+
 }

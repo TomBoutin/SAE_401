@@ -31,4 +31,19 @@
     transform: rotateY(180deg);
   }
   
+  /*  */
+
+  .carousel-container .react-multi-carousel-item {
+    padding: 2.5rem 0;
+  }
+  
+  .custom-dot-list-style .react-multi-carousel-dot button {
+    background-color: var(--light-gray) !important;
+  }
+  
+  .custom-dot-list-style .react-multi-carousel-dot--active button {
+    background-color: var(--clr-main) !important;
+  }
+
+  
 }

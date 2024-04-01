@@ -27,25 +27,36 @@ class Movie
     private Collection $category;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['json_category'])]
     private ?string $realisateur = null;
 
     #[ORM\Column]
+    #[Groups(['json_category'])]
     private ?int $annee_sortie = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['json_category'])]
     private ?string $affiche_verticale = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['json_category'])]
     private ?string $affiche_horizontale = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['json_category'])]
     private ?string $trailer = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['json_category'])]
     private ?string $duree = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['json_category'])]
     private ?string $synopsis = null;
+
+    #[ORM\Column]
+    #[Groups(['json_category'])]
+    private ?bool $mis_en_avant = null;
 
     public function __construct()
     {
@@ -173,6 +184,18 @@ class Movie
     public function setSynopsis(string $synopsis): static
     {
         $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    public function isMisEnAvant(): ?bool
+    {
+        return $this->mis_en_avant;
+    }
+
+    public function setMisEnAvant(bool $mis_en_avant): static
+    {
+        $this->mis_en_avant = $mis_en_avant;
 
         return $this;
     }

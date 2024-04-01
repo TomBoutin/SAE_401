@@ -46,4 +46,14 @@ export const Moins = ({ color }) => {
   );
 };
 
+export const Arrow = ({ color, className }) => {
+  return (
+<svg className={`${color} ${className}`} width="125" height="200" viewBox="0 0 125 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fillRule="evenodd" clipRule="evenodd" d="M25.3 0.499996L124.5 100L25.3 199.5L0.499996 174.625L74.9 100L0.500003 25.375L25.3 0.499996Z" fill="currentColor"/>
+</svg>
+
+  );
+};
+
+
 export default Plus;
