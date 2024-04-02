@@ -69,14 +69,13 @@ class ApiController extends AbstractController
 
     #[Route('/api/movies/featured', name: 'app_api_movies_featured')]
     public function getFeaturedMovies(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
-{
-    $movies = $entityManager->getRepository(Movie::class)->findBy(['mis_en_avant' => true]);
-    $data = $serializer->normalize($movies, null, ['groups' => 'json_movie']);
-    $response = new JsonResponse($data);
-    return $response;
-}
+    {
+        $movies = $entityManager->getRepository(Movie::class)->findBy(['mis_en_avant' => true]);
+        $data = $serializer->normalize($movies, null, ['groups' => 'json_movie']);
+        $response = new JsonResponse($data);
+        return $response;
+    }
     
-
 
     #[Route('/api/users', name: 'app_api_users')]
     public function readUsers(EntityManagerInterface $entityManager,SerializerInterface $serializer ): Response

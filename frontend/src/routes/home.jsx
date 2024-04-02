@@ -58,12 +58,16 @@ export default function Home() {
         />
       </section>
 
+
+      
+      {searchValue === "" && (
+      <>
       <h2 className="text-2xl font-bold ml-10 my-6">Films mis en avant</h2>
-
-<div className="mx-7">
-      <CustomCarousel data={dataMoviesFeatured} cardType="vertical" />
-</div>
-
+      <div className="mx-7">
+        <CustomCarousel data={dataMoviesFeatured} cardType="vertical" />
+      </div>
+  </>
+)}
 <h2 className="text-2xl font-bold ml-10 mt-8">Tous les films</h2>
 
 
@@ -84,6 +88,8 @@ export default function Home() {
           </li>
         ))}
       </ul>
+
+      
     </>
   );
 }
