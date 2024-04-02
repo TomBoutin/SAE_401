@@ -77,17 +77,21 @@ export default function Home() {
         className="ml-10 mt-10"
       />
 
-      <ul className="mx-5 my-8 flex flex-wrap items-center justify-center gap-5 ">
-        {filteredMovies.map((movie) => (
-          <li key={movie.id}>
-            <Suspense fallback={<Card_HorizontalSkeleton />}>
-              <Link to={`/details/${movie.id}`}>
-                <Card_Horizontal {...movie} />
-              </Link>
-            </Suspense>
-          </li>
-        ))}
-      </ul>
+<ul className="mx-5 my-8 flex flex-wrap items-center justify-center gap-5 ">
+  {filteredMovies.length > 0 ? (
+    filteredMovies.map((movie) => (
+      <li key={movie.id}>
+        <Suspense fallback={<Card_HorizontalSkeleton />}>
+          <Link to={`/details/${movie.id}`}>
+            <Card_Horizontal {...movie} />
+          </Link>
+        </Suspense>
+      </li>
+    ))
+  ) : (
+    <p className=" font-openSans my-10 text-xl text-center">Aucun film ne correspond à votre recherche</p>
+  )}
+</ul>
 
       
     </>

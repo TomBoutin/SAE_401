@@ -28,6 +28,7 @@ export default {
         cardGradiant: "linear-gradient(180deg, rgba(22,15,15,0) 0%, #160F0F 100%)",
         HeaderImage: "linear-gradient(180deg, rgba(22,15,15,0) 0%,rgba(22,15,15,0) 45%, #160F0F 100%), url('/img/bg-image.webp')",
         DetailsGradiant: "linear-gradient(180deg, rgba(22,15,15,0) 0%, #160F0F 100%)",
+        FooterGradiant: "linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,1))",
       },
       borderRadius: {
         DEFAULT: "var(--radius)",

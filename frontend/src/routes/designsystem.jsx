@@ -7,6 +7,7 @@ import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
 import { fetchMovieData } from "../lib/loaders";
 import { useLoaderData, defer } from "react-router-dom";
+import Footer from "../ui/Footer/index.jsx";
 
 // export async function fetchMovieData(movie) {
 //   let answer = await fetch(`http://localhost:8080/api/movie/${movie}`);
@@ -42,6 +43,8 @@ export default function DesignSystem() {
 
         <Select categories={["Catégorie1", "Catégorie2", "Catégorie3", "Catégorie4"]} />
         </div>
+
+        <Footer/>
         
       </section>
     </>
