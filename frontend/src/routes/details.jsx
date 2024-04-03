@@ -37,7 +37,7 @@ export default function Details() {
           </div>
 
         </div>
-        <p className="ml-10 relative bottom-11 sm:bottom-16">{movie.synopsis}</p>
+        <p className="mx-10 relative bottom-11 sm:bottom-16">{movie.synopsis}</p>
 
         <div>
 
