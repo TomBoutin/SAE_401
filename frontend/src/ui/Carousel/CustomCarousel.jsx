@@ -27,7 +27,7 @@ const responsive = {
   }
 };
 
-function CustomCarousel({ data, cardType, deviceType }) {
+function CustomCarousel({ data, cardType }) {
 
   return (
     <Carousel
@@ -37,6 +37,7 @@ function CustomCarousel({ data, cardType, deviceType }) {
         </Button>
       }
       customLeftArrow={
+        
         <Button className="absolute top-1/2 left-10" intent={`primary`} size="small">
           <Arrow color="text-white" className="transform rotate-180 h-8 w-8" />
         </Button>
@@ -53,7 +54,7 @@ function CustomCarousel({ data, cardType, deviceType }) {
       transitionDuration={500}
       containerClass="carousel-container"
       removeArrowOnDeviceType={["tablet", "mobile"]}
-      deviceType={deviceType}
+      // deviceType={deviceType}
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-padding-5-px"
     >

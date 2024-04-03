@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Change Details{% endblock %}
+
+{% block body %}
+    <h1>Change Details</h1>
+
+    {{ form_start(changeDetailsForm) }}
+        {{ form_row(changeDetailsForm.email) }}
+        {{ form_row(changeDetailsForm.plainPassword.first) }}
+        {{ form_row(changeDetailsForm.plainPassword.second) }}
+
+        <button class="btn btn-primary">Change Details</button>
+    {{ form_end(changeDetailsForm) }}
+{% endblock %}

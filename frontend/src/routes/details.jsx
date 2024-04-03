@@ -1,7 +1,7 @@
 import { useLoaderData, defer } from "react-router-dom";
 import { fetchMovieData, fetchCategorieData } from "../lib/loaders";
 import React, { useLayoutEffect } from 'react';
-import CustomCarousel from "../ui/Carousel/carousel.jsx";
+import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
 
 export async function loader({ params }) {
   const dataMovie = await fetchMovieData(params.filmId);

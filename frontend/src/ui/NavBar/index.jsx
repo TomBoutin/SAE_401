@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import Button from "../../ui/components/Button.jsx";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Profil } from "../Icons/index.jsx";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('token'));
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,17 +42,14 @@ export default function NavBar() {
             <Link
               to="/"
               className="text-white hover:text-main"
-              onClick={toggleMenu}
-            >
+              onClick={toggleMenu}>
               Films
             </Link>
           </li>
           <li>
-            <Link to="http://localhost:8080/login" onClick={toggleMenu}>
-              <Button intent="primary" size="small">
-                Se Connecter
-              </Button>
-            </Link>
+          <Link to={isAuthenticated ? "/profil" : "/login"} onClick={toggleMenu}>
+  {isAuthenticated ? <Button intent="primary" size="small"><Profil className={`h-7 w-7`} /></Button> : <Button intent="primary" size="small">Se Connecter</Button>}
+</Link>
           </li>
         </ul>
 

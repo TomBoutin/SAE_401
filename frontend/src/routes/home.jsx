@@ -8,7 +8,7 @@ import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
 import { fetchCategoriesData, fetchMoviesData,  fetchMoviesFeatured } from "../lib/loaders";
 import Card_HorizontalSkeleton from "../ui/components/Card_HorizontalSkeleton";
-import CustomCarousel from "../ui/Carousel/carousel.jsx";
+import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
 
 
 export async function loader() {
@@ -22,6 +22,8 @@ export default function Home() {
   const { dataMovies, dataCategories, dataMoviesFeatured } = useLoaderData();
   const [selectedCategory, setSelectedCategory] = useState();
   const [searchValue, setSearchValue] = useState("");
+
+  
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);

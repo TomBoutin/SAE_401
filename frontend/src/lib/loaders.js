@@ -56,3 +56,15 @@ export async function fetchCategorieData(categorie) {
     let data = await answer.json();
     return data;
 }
+
+// export async function fetchUserConnected() {
+//     let answer = await fetch("http://localhost:8080/api/user", {credentials: 'include'});
+//     if(answer.redirected===true){
+//         return window.location.href =  answer.url;
+//     } else {
+//         let data = await answer.json();
+//         return data;
+//     }
+
+// } 
+
