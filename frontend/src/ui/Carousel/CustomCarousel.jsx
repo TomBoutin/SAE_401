@@ -28,7 +28,7 @@ const responsive = {
   }
 };
 
-function CustomCarousel({ data, cardType }) {
+function CustomCarousel({ data, cardType, isInWatchlist }) {
 
   return (
     <Carousel
@@ -63,13 +63,13 @@ function CustomCarousel({ data, cardType }) {
         if (cardType === 'vertical') {
           return (
             <Link to={getCookie('user') ? `/details/${movieItem.id}` : '/login'} key={index}>
-              <Card_Vertical {...movieItem} className="mx-auto" />
+              <Card_Vertical {...movieItem} className="mx-auto" isInWatchlist={isInWatchlist}/>
             </Link>
           )
         } else if (cardType === 'horizontal') {
           return (
             <Link to={getCookie('user') ? `/details/${movieItem.id}` : '/login'} key={index}>
-              <Card_Horizontal {...movieItem} className="mx-auto" />
+              <Card_Horizontal {...movieItem} className="mx-auto" isInWatchlist={isInWatchlist}/>
             </Link>
           )
         } else {

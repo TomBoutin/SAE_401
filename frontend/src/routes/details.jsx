@@ -1,6 +1,6 @@
 import { useLoaderData, defer } from "react-router-dom";
-import { fetchMovieData, fetchCategorieData } from "../lib/loaders";
-import React, { useLayoutEffect } from 'react';
+import { fetchMovieData, fetchCategorieData, fetchWatchList } from "../lib/loaders";
+import React, { useLayoutEffect, useState } from 'react';
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
 import Button from "../ui/components/Button.jsx";
 import { getCookie } from "../lib/utils.js";
@@ -10,25 +10,38 @@ import { getCookie } from "../lib/utils.js";
 export async function loader({ params }) {
   const dataMovie = await fetchMovieData(params.filmId);
   const dataCategories = await Promise.all(dataMovie.category.map(category => fetchCategorieData(category.id)));
-  return defer({ movie: dataMovie, dataCategories });
+  const user = JSON.parse(getCookie('user'));
+  const dataWatchlistMovie = await fetchWatchList(user.id);
+  return defer({ movie: dataMovie, dataCategories, dataWatchlistMovie });
 }
 
 
 
 
 export default function Details() {
-  const { movie, dataCategories } = useLoaderData();
+  const { movie, dataCategories, dataWatchlistMovie } = useLoaderData();
+  const [isMovieInWatchlist, setIsMovieInWatchlist] = useState(
+    dataWatchlistMovie.movies
+      ? dataWatchlistMovie.movies.some(watchlistMovie => watchlistMovie.id === movie.id)
+      : false
+  );
 
   const handleAddToWatchlist = async () => {
+    if (isMovieInWatchlist) {
+      alert('Vous avez déjà vu ce film');
+      return;
+    }
+
     const user = JSON.parse(getCookie('user'));
     const response = await fetch(`http://localhost:8080/api/watchlist/user/${user.id}/movie/${movie.id}/add`, {
       method: 'POST',
     });
   
     if (response.ok) {
-      alert('Movie added to watchlist successfully');
+      // alert('Le film a été ajouté à votre watchlist');
+      setIsMovieInWatchlist(true); // Update the state here
     } else {
-      alert('Failed to add movie to watchlist');
+      alert('Une erreur est survenue lors de l\'ajout du film à votre watchlist');
     }
   };
 
@@ -47,7 +60,7 @@ export default function Details() {
           <div className="absolute inset-0 bg-DetailsGradiant"></div>
         </div>
 
-        <div className="absolute top-80 left-10">
+        <div className="absolute top-72 left-10">
           <h1 className="font-bold text-2xl sm:text-4xl mb-4">{movie.name}</h1>
           <p className="text-xl sm:text-2xl">{movie.realisateur}</p>
 
@@ -56,14 +69,14 @@ export default function Details() {
             <p>{movie.duree}</p>
           </div>
 
+          <Button intent={`primary`} className="mt-5" onClick={handleAddToWatchlist}>
+        {isMovieInWatchlist ? 'Vous avez déjà vu ce film' : 'Ajouter à la Watchlist'}
+      </Button>
         </div>
-        <p className="mx-10 relative bottom-11 sm:bottom-16">{movie.synopsis}</p>
+        <p className="mx-10 relative bottom-11 sm:bottom-10">{movie.synopsis}</p>
 
         <div>
 
-          <Button intent={`primary`} className="ml-10 mb-5" onClick={handleAddToWatchlist}>
-            Voir le film
-          </Button>
 
           <h3 className="text-2xl font-bold ml-10 mb-10">
             Trailer

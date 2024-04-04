@@ -6,7 +6,7 @@ import Card_Vertical from "../ui/components/Card_Vertical";
 import Input from "../ui/components/Input";
 import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
-import { fetchCategoriesData, fetchMoviesData,  fetchMoviesFeatured } from "../lib/loaders";
+import { fetchCategoriesData, fetchMoviesData,  fetchMoviesFeatured, fetchWatchList } from "../lib/loaders";
 import Card_HorizontalSkeleton from "../ui/components/Card_HorizontalSkeleton";
 import { getCookie } from "../lib/utils";
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
@@ -16,15 +16,15 @@ export async function loader() {
   const dataMovies = await fetchMoviesData();
   const dataCategories = await fetchCategoriesData();
   const dataMoviesFeatured = await fetchMoviesFeatured();
-  return defer({ dataMovies, dataCategories, dataMoviesFeatured });
+  const user = JSON.parse(getCookie('user'));
+  const dataWatchlistMovie = await fetchWatchList(user.id);
+  return defer({ dataMovies, dataCategories, dataMoviesFeatured, dataWatchlistMovie });
 }
 
 export default function Home() {
-  const { dataMovies, dataCategories, dataMoviesFeatured } = useLoaderData();
+  const { dataMovies, dataCategories, dataMoviesFeatured, dataWatchlistMovie } = useLoaderData();
   const [selectedCategory, setSelectedCategory] = useState();
   const [searchValue, setSearchValue] = useState("");
-
-  
 
   const handleSelectChange = (event) => {
     setSelectedCategory(event.target.value);
@@ -67,7 +67,7 @@ export default function Home() {
       <>
       <h2 className="text-2xl font-bold ml-10 my-6">Films mis en avant</h2>
       <div className="mx-7">
-        <CustomCarousel data={dataMoviesFeatured} cardType="vertical" />
+        <CustomCarousel data={dataMoviesFeatured} cardType="vertical"/>
       </div>
   </>
 )}
@@ -81,20 +81,25 @@ export default function Home() {
       />
 
 <ul className="mx-5 my-8 flex flex-wrap items-center justify-center gap-5 ">
-  {filteredMovies.length > 0 ? (
-    filteredMovies.map((movie) => (
-      <li key={movie.id}>
-        <Suspense fallback={<Card_HorizontalSkeleton />}>
-          <Link to={getCookie('user') ? `/details/${movie.id}` : '/login'}>
-            <Card_Horizontal {...movie} />
-          </Link>
-        </Suspense>
-      </li>
-    ))
-  ) : (
-    <p className=" font-openSans my-10 text-xl text-center">Aucun film ne correspond à votre recherche</p>
-  )}
-</ul>
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((movie) => {
+            const isInWatchlist = dataWatchlistMovie.movies
+              ? dataWatchlistMovie.movies.some(watchlistMovie => watchlistMovie.id === movie.id)
+              : false;
+            return (
+              <li key={movie.id}>
+                <Suspense fallback={<Card_HorizontalSkeleton />}>
+                  <Link to={getCookie('user') ? `/details/${movie.id}` : '/login'}>
+                    <Card_Horizontal {...movie} isInWatchlist={isInWatchlist} />
+                  </Link>
+                </Suspense>
+              </li>
+            );
+          })
+        ) : (
+          <p className=" font-openSans my-10 text-xl text-center">Aucun film ne correspond à votre recherche</p>
+        )}
+      </ul>
 
       
     </>

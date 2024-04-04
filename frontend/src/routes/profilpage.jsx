@@ -88,7 +88,7 @@ export default function ProfilPage() {
     </section>
 
     <div className="px-7">
-      <CustomCarousel data={dataWatchlistMovie.movies} cardType="horizontal" deviceType="desktop" />
+      <CustomCarousel data={dataWatchlistMovie.movies} cardType="horizontal" deviceType="desktop"/>
     </div>
   </>
 )}

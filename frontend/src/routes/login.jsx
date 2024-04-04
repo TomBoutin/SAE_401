@@ -18,9 +18,6 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    
-
     try {
       const response = await fetch("http://localhost:8080/api/login_check", {
         method: "POST",

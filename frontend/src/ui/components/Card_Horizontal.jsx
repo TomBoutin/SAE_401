@@ -4,7 +4,7 @@ import { Plus } from "../Icons/index.jsx";
 
 import Button from "./Button.jsx";
 
-export default function Card_Horizontal({ className, id, name, realisateur, annee_sortie, affiche_horizontale}) {
+export default function Card_Horizontal({ className, id, name, realisateur, annee_sortie, affiche_horizontale, isInWatchlist}) {
 
   return (
     <div id={id} className={`${className} list-none group relative h-40 w-64 sm:h-52 sm:w-88 cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-cardGradiant before:opacity-0 hover:before:opacity-100 font-openSans before:transform before:transition-all before:duration-200 duration-300 transition-all hover:outline outline-offset-1 outline-main z-3 hover:scale-105`}>
@@ -17,6 +17,9 @@ export default function Card_Horizontal({ className, id, name, realisateur, anne
         </div>
       </div>
       
+      <div>
+      {isInWatchlist && <div className="absolute top-4 right-0 bg-main py-1 px-6 rounded-l-lg">Vu</div>}
+      </div>
 
 
     </div>
