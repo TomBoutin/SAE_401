@@ -8,6 +8,7 @@ import Button from "../ui/components/Button";
 import Select from "../ui/components/Select";
 import { fetchCategoriesData, fetchMoviesData,  fetchMoviesFeatured } from "../lib/loaders";
 import Card_HorizontalSkeleton from "../ui/components/Card_HorizontalSkeleton";
+import { getCookie } from "../lib/utils";
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
 
 
@@ -84,7 +85,7 @@ export default function Home() {
     filteredMovies.map((movie) => (
       <li key={movie.id}>
         <Suspense fallback={<Card_HorizontalSkeleton />}>
-          <Link to={`/details/${movie.id}`}>
+          <Link to={getCookie('user') ? `/details/${movie.id}` : '/login'}>
             <Card_Horizontal {...movie} />
           </Link>
         </Suspense>

@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Repository\WatchlistRepository;
+use App\Entity\Watchlist;
 
 
 class ApiController extends AbstractController
@@ -75,16 +77,69 @@ class ApiController extends AbstractController
         $response = new JsonResponse($data);
         return $response;
     }
-    
 
-    #[Route('/api/users', name: 'app_api_users')]
-    public function readUsers(EntityManagerInterface $entityManager,SerializerInterface $serializer ): Response
-    {
-        $users = $entityManager->getRepository(User::class)->findAll();
-        $data = $serializer->normalize($users);
-        $response = new JsonResponse( $data );
-        return $response;
+    #[Route('/api/watchlist/user/{id}', name: 'app_api_user_watchlists', methods: ['GET'])]
+public function getUserWatchlist(int $id, WatchlistRepository $watchlistRepository, SerializerInterface $serializer): Response
+{
+    $watchlist = $watchlistRepository->findOneBy(['user' => $id]);
+
+    if (!$watchlist) {
+        return $this->json(['message' => 'No watchlist found for this user'], 404);
     }
+
+    $data = $serializer->normalize($watchlist, null, [
+        'groups' => 'json_watchlist',
+        'circular_reference_handler' => function ($object) {
+            return $object->getId();
+        }
+    ]);
+
+    return new JsonResponse($data);
+}
+
+#[Route('/api/watchlist/user/{id}/delete', name: 'app_api_user_watchlist_delete', methods: ['DELETE'])]
+public function deleteUserWatchlist(int $id, EntityManagerInterface $entityManager): Response
+{
+    $watchlistRepository = $entityManager->getRepository(Watchlist::class);
+    $watchlist = $watchlistRepository->findOneBy(['user' => $id]);
+
+    if (!$watchlist) {
+        return $this->json(['message' => 'No watchlist found for this user'], 404);
+    }
+
+    foreach ($watchlist->getMovies() as $movie) {
+        $watchlist->removeMovie($movie);
+    }
+
+    $entityManager->persist($watchlist);
+    $entityManager->flush();
+
+    return $this->json(['message' => 'Watchlist cleared successfully']);
+}
+
+#[Route('/api/watchlist/user/{userId}/movie/{movieId}/add', name: 'app_api_user_watchlist_add_movie', methods: ['POST'])]
+    public function addMovieToUserWatchlist(int $userId, int $movieId, EntityManagerInterface $entityManager): Response
+    {
+        $userRepository = $entityManager->getRepository(User::class);
+        $movieRepository = $entityManager->getRepository(Movie::class);
+        $watchlistRepository = $entityManager->getRepository(Watchlist::class);
+
+        $user = $userRepository->find($userId);
+        $movie = $movieRepository->find($movieId);
+        $watchlist = $watchlistRepository->findOneBy(['user' => $userId]);
+
+        if (!$user || !$movie || !$watchlist) {
+            return $this->json(['message' => 'User, movie or watchlist not found'], 404);
+        }
+
+        // Add the movie to the watchlist
+        $watchlist->addMovie($movie);
+
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Movie added to watchlist successfully']);
+    }
+    
     
 
 }

@@ -32,6 +32,10 @@ class AuthenticationController extends AbstractController
             ], 401);
         }
 
-        return $this->json($user);
+            return $this->json([
+                'id' => $user->getId(),
+        'email' => $user->getEmail(),
+        'pseudo' => $user->getPseudo(),
+    ]);
     }
 }

@@ -13,7 +13,26 @@ import Details, {loader as detailsLoader} from './routes/details.jsx';
 import ProfilPage, { loader as profilLoader} from './routes/profilpage.jsx'
 import Login from './routes/login.jsx'
 import Register from './routes/register.jsx';
+import { getCookie } from './lib/utils.js';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
+function ProtectedRoute({ children }) {
+  const navigate = useNavigate();
+  const user = getCookie('user');
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return null;
+  }
+
+  return children;
+}
 
 
 // import Buy from './routes/buy.jsx';
@@ -31,12 +50,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/details/:filmId',
-        element: <Details />,
+        element: <ProtectedRoute><Details /></ProtectedRoute>,
         loader: detailsLoader,
       },
       {
         path: '/profil',
-        element: <ProfilPage />,
+        element: <ProtectedRoute><ProfilPage /></ProtectedRoute>,
         loader: profilLoader,
       },
       {

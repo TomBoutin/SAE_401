@@ -1,4 +1,6 @@
 // import { fakeNetwork } from "./utils.js";
+import { getCookie } from "./utils.js";
+
 
 export async function fetchOurTeams(teamName) {
     // await fakeNetwork();
@@ -57,6 +59,13 @@ export async function fetchCategorieData(categorie) {
     return data;
 }
 
+export async function fetchWatchList(id_user) {
+    let answer = await fetch(`http://localhost:8080/api/watchlist/user/${id_user}`);
+    let data = await answer.json();
+    return data;
+}
+
+
 // export async function fetchUserConnected() {
 //     let answer = await fetch("http://localhost:8080/api/user", {credentials: 'include'});
 //     if(answer.redirected===true){
@@ -68,3 +77,12 @@ export async function fetchCategorieData(categorie) {
 
 // } 
 
+// export function ProtectedRoute({ children }) {
+//   const user = getCookie('user');
+
+//   if (!user) {
+//     return <Redirect to="/login" />;
+//   }
+
+//   return children;
+// }

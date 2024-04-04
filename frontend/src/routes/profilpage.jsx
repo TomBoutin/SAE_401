@@ -4,33 +4,42 @@ import React, { useLayoutEffect } from 'react';
 import { Profil } from '../ui/Icons/index.jsx'
 import Button from "../ui/components/Button.jsx";
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
-import { fetchMoviesFeatured } from "../lib/loaders";
-
+// import { fetchMoviesFeatured } from "../lib/loaders";
+import { fetchWatchList } from "../lib/loaders";
+import { getCookie, deleteCookie } from "../lib/utils.js";
 
 
 
 export async function loader() {
-  const dataMoviesFeatured = await fetchMoviesFeatured();
-  return defer({ dataMoviesFeatured });
+  const user = JSON.parse(getCookie('user'));
+  const dataWatchlistMovie = await fetchWatchList(user.id);
+  return defer({ dataWatchlistMovie });
 }
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
+async function deleteWatchlist() {
+  const user = JSON.parse(getCookie('user'));
 
-function deleteCookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
+  
+  const response = await fetch(`http://localhost:8080/api/watchlist/user/${user.id}/delete`, {
+    method: 'DELETE',
+  });
 
+  if (response.ok) {
+    // Refresh the page or update the state to reflect the deleted watchlist
+    window.location.reload();
+    // console.log('Watchlist deleted');
+  } else {
+    console.error('Failed to delete watchlist');
+  }
+
+}
 
 export default function ProfilPage() {
-  const { dataMoviesFeatured } = useLoaderData();
+  const { dataWatchlistMovie } = useLoaderData();
   const user = JSON.parse(getCookie('user'));
 
 
-  // console.log(dataMoviesFeatured);
+  // console.log(dataWatchlistMovie);
 
 
   useLayoutEffect(() => {
@@ -47,7 +56,7 @@ export default function ProfilPage() {
           Votre Profil
         </h2>
 
-        <p className="text-lg mb-10">{user.email}</p>
+        <p className="text-lg mb-10">{user.pseudo}</p>
 
 
         <Link to="/">
@@ -69,23 +78,20 @@ export default function ProfilPage() {
 
         </section>
 
-        {dataMoviesFeatured.length > 0 && (
-          <>
-      <h3 className="text-2xl font-bold mt-6 mb-3 text-center">Historique</h3>
-      <section className="font-openSans flex flex-col items-center justify-center">
-        <Link to="/" className="mt-5">
-          <Button intent={`primary`}>
-            Supprimer l'historique
-          </Button>
-        </Link>
-      </section>
+        {dataWatchlistMovie.movies && dataWatchlistMovie.movies.length > 0 && (
+  <>
+    <h3 className="text-2xl font-bold mt-6 mb-3 text-center">Votre Watchlist</h3>
+    <section className="font-openSans flex flex-col items-center justify-center">
+        <Button intent={`primary`} onClick={deleteWatchlist}>
+          Supprimer la watchlist
+        </Button>
+    </section>
 
-      <div className="px-7">
-        <CustomCarousel data={dataMoviesFeatured} cardType="horizontal" deviceType="desktop" />
-      </div>
-      
-      </>
-        )}
+    <div className="px-7">
+      <CustomCarousel data={dataWatchlistMovie.movies} cardType="horizontal" deviceType="desktop" />
+    </div>
+  </>
+)}
 
     </>
   );

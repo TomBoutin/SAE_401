@@ -41,15 +41,18 @@ export default function Login() {
       const data = await response.json();
 
       if (data.token) {
-        const userResponse = await fetch("http://localhost:8080/api/user", {
+        const userResponse = await fetch("http://localhost:8080/api/user", 
+         {
           headers: {
-            Authorization: `Bearer ${data.token}`,
+            'Authorization': `Bearer ${data.token}`,
           },
+          
         });
 
         const UserData = await userResponse.json();
 
         console.log(UserData);
+        
         document.cookie = `user=${JSON.stringify(UserData)}`;
 
       }
@@ -60,7 +63,8 @@ export default function Login() {
       window.location.href = "/";
       
     } catch (error) {
-      setMessage(error.message);
+      console.log(error.message);
+      setMessage("Email ou mot de passe incorrect");
     }
   };
 

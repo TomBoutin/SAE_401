@@ -9,7 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 
 class UserCrudController extends AbstractCrudController
@@ -29,10 +29,17 @@ class UserCrudController extends AbstractCrudController
   $roles->setChoices(['ROLE_USER'=>'ROLE_USER', 'ROLE_ADMIN'=>'ROLE_ADMIN']);
   // autoriser le choix multiple
   $roles->allowMultipleChoices();
+
+    // un champ de type text pour la propriété pseudo
+  $pseudo = TextField::new('pseudo');
+
+//   $watchlists = AssociationField::new('watchlist');
+
   // retourner les champs
   return [
      $email,
-     $roles
+     $roles,
+     $pseudo
   ];
 }
 

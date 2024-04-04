@@ -6,6 +6,7 @@ import Card_Horizontal from "../components/Card_Horizontal.jsx";
 import Button from '../components/Button.jsx';
 import { Arrow } from '../Icons/index.jsx';
 import { Link } from 'react-router-dom';
+import { getCookie } from '../../lib/utils.js';
 
 
 const responsive = {
@@ -61,13 +62,13 @@ function CustomCarousel({ data, cardType }) {
       {data.map((movieItem, index) => {
         if (cardType === 'vertical') {
           return (
-            <Link to={`/details/${movieItem.id}`} key={index}>
+            <Link to={getCookie('user') ? `/details/${movieItem.id}` : '/login'} key={index}>
               <Card_Vertical {...movieItem} className="mx-auto" />
             </Link>
           )
         } else if (cardType === 'horizontal') {
           return (
-            <Link to={`/details/${movieItem.id}`} key={index}>
+            <Link to={getCookie('user') ? `/details/${movieItem.id}` : '/login'} key={index}>
               <Card_Horizontal {...movieItem} className="mx-auto" />
             </Link>
           )

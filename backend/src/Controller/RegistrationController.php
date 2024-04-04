@@ -12,6 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Form\ChangeDetailsFormType;
+use App\Entity\Watchlist;
 
 
 
@@ -23,7 +24,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -32,16 +33,26 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+    
+            // set the pseudo
+            $user->setPseudo(
+                $form->get('pseudo')->getData()
+            );
+    
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $watchlist = new Watchlist();
+            $watchlist->setUser($user);
+            $entityManager->persist($watchlist);
+            $entityManager->flush();
+    
             // do anything else you need here, like send an email
-
+    
             // return $this->redirectToRoute('admin');
             return $this->redirect('http://localhost:8090/login');
         }
-
+    
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);

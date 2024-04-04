@@ -2,6 +2,10 @@ import { useLoaderData, defer } from "react-router-dom";
 import { fetchMovieData, fetchCategorieData } from "../lib/loaders";
 import React, { useLayoutEffect } from 'react';
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
+import Button from "../ui/components/Button.jsx";
+import { getCookie } from "../lib/utils.js";
+
+
 
 export async function loader({ params }) {
   const dataMovie = await fetchMovieData(params.filmId);
@@ -9,8 +13,24 @@ export async function loader({ params }) {
   return defer({ movie: dataMovie, dataCategories });
 }
 
+
+
+
 export default function Details() {
   const { movie, dataCategories } = useLoaderData();
+
+  const handleAddToWatchlist = async () => {
+    const user = JSON.parse(getCookie('user'));
+    const response = await fetch(`http://localhost:8080/api/watchlist/user/${user.id}/movie/${movie.id}/add`, {
+      method: 'POST',
+    });
+  
+    if (response.ok) {
+      alert('Movie added to watchlist successfully');
+    } else {
+      alert('Failed to add movie to watchlist');
+    }
+  };
 
   const sameCategoryMovies = dataCategories.flatMap(category => category.movies).filter(m => m.id !== movie.id);
 
@@ -41,7 +61,11 @@ export default function Details() {
 
         <div>
 
-          <h3 className="text-2xl font-bold ml-10 mb-6">
+          <Button intent={`primary`} className="ml-10 mb-5" onClick={handleAddToWatchlist}>
+            Voir le film
+          </Button>
+
+          <h3 className="text-2xl font-bold ml-10 mb-10">
             Trailer
           </h3>
 

@@ -16,51 +16,55 @@ class Movie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'movies')]
     private Collection $category;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $realisateur = null;
 
     #[ORM\Column]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?int $annee_sortie = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $affiche_verticale = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $affiche_horizontale = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $trailer = null;
 
     #[ORM\Column(length: 20)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $duree = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?string $synopsis = null;
 
     #[ORM\Column]
-    #[Groups(['json_category'])]
+    #[Groups(['json_category', 'json_watchlist'])]
     private ?bool $mis_en_avant = null;
+
+    #[ORM\ManyToMany(targetEntity: Watchlist::class, mappedBy: 'movies')]
+    private Collection $watchlist;
 
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        // $this->watchlists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,5 +204,19 @@ class Movie
         return $this;
     }
 
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+ * @return Collection<int, Watchlist>
+ */
+public function getWatchlist(): Collection
+{
+    return $this->watchlist;
+}
+    
 
 }
