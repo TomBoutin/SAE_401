@@ -21,7 +21,6 @@ const button = cva(base, {
         "text-white",
         "border-b-8",
         "border-transparent",
-        "hover:border-main",
       ],
     },
     size: {

@@ -1,6 +1,6 @@
 import { useLoaderData, defer } from "react-router-dom";
 import { fetchMovieData, fetchCategorieData, fetchWatchList } from "../lib/loaders";
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import CustomCarousel from "../ui/Carousel/CustomCarousel.jsx";
 import Button from "../ui/components/Button.jsx";
 import { getCookie } from "../lib/utils.js";
@@ -21,10 +21,19 @@ export async function loader({ params }) {
 export default function Details() {
   const { movie, dataCategories, dataWatchlistMovie } = useLoaderData();
   const [isMovieInWatchlist, setIsMovieInWatchlist] = useState(
-    dataWatchlistMovie.movies
+    dataWatchlistMovie && dataWatchlistMovie.movies
       ? dataWatchlistMovie.movies.some(watchlistMovie => watchlistMovie.id === movie.id)
       : false
   );
+
+  useEffect(() => {
+    setIsMovieInWatchlist(
+      dataWatchlistMovie && dataWatchlistMovie.movies
+        ? dataWatchlistMovie.movies.some(watchlistMovie => watchlistMovie.id === movie.id)
+        : false
+    );
+  }, [movie, dataWatchlistMovie]);
+
 
   const handleAddToWatchlist = async () => {
     if (isMovieInWatchlist) {
@@ -92,7 +101,7 @@ export default function Details() {
           <>
       <h3 className="text-2xl font-bold ml-10 my-6">Autres films similaires</h3>
       <div className="px-7">
-        <CustomCarousel data={sameCategoryMovies} cardType="horizontal" />
+        <CustomCarousel data={sameCategoryMovies} cardType="horizontal" watchlistData={dataWatchlistMovie}/>
       </div>
       </>
         )}

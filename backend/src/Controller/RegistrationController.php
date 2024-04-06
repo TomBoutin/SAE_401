@@ -57,38 +57,4 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form,
         ]);
     }
-
-    #[Route('/change-password', name: 'app_change_password')]
-    public function changeDetails(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
-{
-    $user = $this->getUser();
-    $form = $this->createForm(ChangeDetailsFormType::class, $user);
-
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Encode the new password
-        $user->setPassword(
-            $passwordHasher->hashPassword(
-                $user,
-                $form->get('plainPassword')->getData()
-            )
-        );
-
-        // Update the email
-        $user->setEmail(
-            $form->get('email')->getData()
-        );
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        // Redirect to some route, change it to your needs
-        return $this->redirectToRoute('app_home');
-    }
-
-    return $this->render('registration/changeDetails.html.twig', [
-        'changeDetailsForm' => $form->createView(),
-    ]);
-}
 }

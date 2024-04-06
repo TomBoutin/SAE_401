@@ -31,6 +31,10 @@
     transform: rotateY(180deg);
   }
   
+  .border-main{
+    border-color: var(--clr-main);
+  }
+  
   /*  */
 
   .carousel-container .react-multi-carousel-item {

@@ -28,8 +28,7 @@ const responsive = {
   }
 };
 
-function CustomCarousel({ data, cardType, isInWatchlist }) {
-
+function CustomCarousel({ data, cardType, isInWatchlist, watchlistData }) {
   return (
     <Carousel
       customRightArrow={
@@ -59,7 +58,11 @@ function CustomCarousel({ data, cardType, isInWatchlist }) {
       dotListClass="custom-dot-list-style"
       itemClass="carousel-item-padding-5-px"
     >
-      {data.map((movieItem, index) => {
+       {data.map((movieItem, index) => {
+    const isInWatchlist = watchlistData.movies
+      ? watchlistData.movies.some(watchlistMovie => watchlistMovie.id === movieItem.id)
+      : false;
+
         if (cardType === 'vertical') {
           return (
             <Link to={getCookie('user') ? `/details/${movieItem.id}` : '/login'} key={index}>
@@ -73,7 +76,7 @@ function CustomCarousel({ data, cardType, isInWatchlist }) {
             </Link>
           )
         } else {
-          return null; // Ou afficher un message d'erreur approprié
+          return null; // Or display an appropriate error message
         }
       })}
     </Carousel>

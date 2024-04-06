@@ -59,7 +59,7 @@ export default function ProfilPage() {
         <p className="text-lg mb-10">{user.pseudo}</p>
 
 
-        <Link to="/">
+        <Link to="/profil/modifier">
 
           <Button intent={`primary`} className={`mb-5`}>
             Modifier
@@ -88,7 +88,7 @@ export default function ProfilPage() {
     </section>
 
     <div className="px-7">
-      <CustomCarousel data={dataWatchlistMovie.movies} cardType="horizontal" deviceType="desktop"/>
+      <CustomCarousel data={dataWatchlistMovie.movies} cardType="horizontal" deviceType="desktop" watchlistData={{movies: []}}/>
     </div>
   </>
 )}

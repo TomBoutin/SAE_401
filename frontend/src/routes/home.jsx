@@ -16,9 +16,16 @@ export async function loader() {
   const dataMovies = await fetchMoviesData();
   const dataCategories = await fetchCategoriesData();
   const dataMoviesFeatured = await fetchMoviesFeatured();
-  const user = JSON.parse(getCookie('user'));
-  const dataWatchlistMovie = await fetchWatchList(user.id);
+  const userCookie = getCookie('user');
+  let dataWatchlistMovie = [];
+
+  if (userCookie) {
+    const user = JSON.parse(userCookie);
+    dataWatchlistMovie = await fetchWatchList(user.id);
+  }
+
   return defer({ dataMovies, dataCategories, dataMoviesFeatured, dataWatchlistMovie });
+
 }
 
 export default function Home() {
@@ -67,7 +74,7 @@ export default function Home() {
       <>
       <h2 className="text-2xl font-bold ml-10 my-6">Films mis en avant</h2>
       <div className="mx-7">
-        <CustomCarousel data={dataMoviesFeatured} cardType="vertical"/>
+        <CustomCarousel data={dataMoviesFeatured} cardType="vertical" watchlistData={dataWatchlistMovie}/>
       </div>
   </>
 )}

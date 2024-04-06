@@ -11,13 +11,13 @@ import DesignSystem, {loader as designsystemloader} from './routes/designsystem.
 import Home, {loader as homeLoader} from './routes/home.jsx';
 import Details, {loader as detailsLoader} from './routes/details.jsx';
 import ProfilPage, { loader as profilLoader} from './routes/profilpage.jsx'
-import Login from './routes/login.jsx'
-import Register from './routes/register.jsx';
+import Login from './routes/login.jsx';
 import { getCookie } from './lib/utils.js';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import ProfilModifierPage, { loader as profilmodifierLoader } from './routes/profilmodifierpage.jsx';
 
-function ProtectedRoute({ children }) {
+function PrivateRoute({ children }) {
   const navigate = useNavigate();
   const user = getCookie('user');
 
@@ -28,6 +28,23 @@ function ProtectedRoute({ children }) {
   }, [user, navigate]);
 
   if (!user) {
+    return null;
+  }
+
+  return children;
+}
+
+function ProtectedRoute({ children }) {
+  const navigate = useNavigate();
+  const user = getCookie('user');
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  if (user) {
     return null;
   }
 
@@ -50,26 +67,24 @@ const router = createBrowserRouter([
       },
       {
         path: '/details/:filmId',
-        element: <ProtectedRoute><Details /></ProtectedRoute>,
+        element: <PrivateRoute><Details /></PrivateRoute>,
         loader: detailsLoader,
       },
       {
         path: '/profil',
-        element: <ProtectedRoute><ProfilPage /></ProtectedRoute>,
+        element: <PrivateRoute><ProfilPage /></PrivateRoute>,
         loader: profilLoader,
       },
       {
-        path: '/login',
-        element: <Login />,
-        // loader: ProfilLoader,
+        path: '/profil/modifier',
+        element: <PrivateRoute><ProfilModifierPage /></PrivateRoute>,
+        loader: profilmodifierLoader,
       },
       {
-        path: '/register',
-        element: <Register />,
+        path: '/login',
+        element: <ProtectedRoute><Login /></ProtectedRoute>,
         // loader: ProfilLoader,
       },
-      
-
     ],
   },
   {
