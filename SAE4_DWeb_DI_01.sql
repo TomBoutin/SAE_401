@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mysql
--- Généré le : mer. 03 avr. 2024 à 06:20
+-- Généré le : sam. 06 avr. 2024 à 10:09
 -- Version du serveur : 8.3.0
 -- Version de PHP : 8.2.8
 
@@ -73,7 +73,16 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20240327135846', '2024-03-27 13:58:53', 45),
 ('DoctrineMigrations\\Version20240327140301', '2024-03-27 14:03:07', 22),
 ('DoctrineMigrations\\Version20240327141955', '2024-03-27 14:19:57', 28),
-('DoctrineMigrations\\Version20240328100336', '2024-03-28 10:03:41', 39);
+('DoctrineMigrations\\Version20240328100336', '2024-03-28 10:03:41', 39),
+('DoctrineMigrations\\Version20240404082030', '2024-04-04 08:20:35', 17),
+('DoctrineMigrations\\Version20240404083315', '2024-04-04 08:33:20', 151),
+('DoctrineMigrations\\Version20240404084027', '2024-04-04 08:40:32', 22),
+('DoctrineMigrations\\Version20240404092329', '2024-04-04 09:23:35', 34),
+('DoctrineMigrations\\Version20240404112452', '2024-04-04 11:24:58', 108),
+('DoctrineMigrations\\Version20240404113729', '2024-04-04 11:37:32', 190),
+('DoctrineMigrations\\Version20240404115550', '2024-04-04 11:55:57', 63),
+('DoctrineMigrations\\Version20240404150323', '2024-04-04 15:03:28', 69),
+('DoctrineMigrations\\Version20240404151616', '2024-04-04 15:16:21', 177);
 
 -- --------------------------------------------------------
 
@@ -207,16 +216,47 @@ CREATE TABLE `user` (
   `id` int NOT NULL,
   `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pseudo` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES
-(1, 'machin@gmail.com', '[]', '$2y$13$q59Vkth7/NIGFbz.8Gz6S.Ryw4MN8Kk3bG3rYnxoQ6R9UDWzjXBBO'),
-(2, 'test@gmail.com', '[]', '$2y$13$afxQiAQULQDBqNhj0/kd2ecw2XCmeS5ibNNeFrdXWZczUuMPKLXiS');
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`) VALUES
+(14, 'admin@gmail.com', '[\"ROLE_USER\", \"ROLE_ADMIN\"]', '$2y$13$mFsfo8tlwexwggF1txY9mOhLcTs256XmbI/je6re3tpLnz.bLiUFO', 'Compte Admin'),
+(15, 'user@gmail.com', '[]', '$2y$13$fb4PNz.UQzkfqHWKvMZJ5ePvseWWiadJpSsFaXfZSGmdcUagAfP7q', 'Pseudo User');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `watchlist`
+--
+
+CREATE TABLE `watchlist` (
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+--
+-- Déchargement des données de la table `watchlist`
+--
+
+INSERT INTO `watchlist` (`id`, `user_id`) VALUES
+(8, 14),
+(9, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `watchlist_movie`
+--
+
+CREATE TABLE `watchlist_movie` (
+  `watchlist_id` int NOT NULL,
+  `movie_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Index pour les tables déchargées
@@ -256,6 +296,21 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`);
 
 --
+-- Index pour la table `watchlist`
+--
+ALTER TABLE `watchlist`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_340388D3A76ED395` (`user_id`);
+
+--
+-- Index pour la table `watchlist_movie`
+--
+ALTER TABLE `watchlist_movie`
+  ADD PRIMARY KEY (`watchlist_id`,`movie_id`),
+  ADD KEY `IDX_B38D698383DD0D94` (`watchlist_id`),
+  ADD KEY `IDX_B38D69838F93B6FC` (`movie_id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -275,7 +330,13 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT pour la table `watchlist`
+--
+ALTER TABLE `watchlist`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Contraintes pour les tables déchargées
@@ -287,6 +348,19 @@ ALTER TABLE `user`
 ALTER TABLE `movie_category`
   ADD CONSTRAINT `FK_DABA824C12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_DABA824C8F93B6FC` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `watchlist`
+--
+ALTER TABLE `watchlist`
+  ADD CONSTRAINT `FK_340388D3A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `watchlist_movie`
+--
+ALTER TABLE `watchlist_movie`
+  ADD CONSTRAINT `FK_B38D698383DD0D94` FOREIGN KEY (`watchlist_id`) REFERENCES `watchlist` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_B38D69838F93B6FC` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
