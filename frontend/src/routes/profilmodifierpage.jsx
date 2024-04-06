@@ -243,7 +243,7 @@ export default function ProfilModifierPage() {
 
                                 <label className=''>
 
-                                    Password :
+                                    Mot de passe :
 
                                     <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="" required className="w-full" />
 
